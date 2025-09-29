@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empleados</title>
+
+    <!-- Css de BS5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.5/css/buttons.bootstrap5.css">
+</head>
+
+<body>
+
+    <h1>Lista de empleados</h1>
+
+    <table id="miTabla" class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Telefono</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if empleados %}
+            {% for emp in empleados %}
+            <tr>
+                <td>{{emp.id}}</td>
+                <td>{{emp.nombre}}</td>
+                <td>{{emp.email}}</td>
+                <td>{{emp.telefono}}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                No hay empleados en la DB
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+
+    <!-- JS de datatable -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.5/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.5/js/buttons.bootstrap5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.5/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.5/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.5/js/buttons.colVis.min.js"></script>
+
+    <script>
+        var table = new DataTable('#miTabla', {
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/es-ES.json',
+            }, layout: {
+                topStart: {
+                    buttons: ['copy', 'excel', 'pdf', 'colvis']
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
