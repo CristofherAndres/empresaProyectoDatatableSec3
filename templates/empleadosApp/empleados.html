@@ -12,9 +12,13 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.5/css/buttons.bootstrap5.css">
 </head>
 
-<body>
+<body class="container">
 
-    <h1>Lista de empleados</h1>
+    <div class="alert alert-info display-5 text-center my-5">
+        Empleados 😊
+    </div>
+
+    <a href="{% url 'crearEmpleado' %}" class="btn btn-primary">Crear empleado</a>
 
     <table id="miTabla" class="table table-striped">
         <thead>
@@ -26,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-            {% if empleados %}
+
             {% for emp in empleados %}
             <tr>
                 <td>{{emp.id}}</td>
@@ -35,11 +39,6 @@
                 <td>{{emp.telefono}}</td>
             </tr>
             {% endfor %}
-            {% else %}
-            <tr>
-                No hay empleados en la DB
-            </tr>
-            {% endif %}
         </tbody>
     </table>
 

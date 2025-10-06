@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from empleadosApp.models import Empleado
 from empleadosApp.forms import EmpleadoRegistroForm
+# importar para hacer redirect
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 def empleadosData(request):
@@ -14,10 +17,9 @@ def crearEmpleado(request):
     if request.method == 'POST':
         form = EmpleadoRegistroForm(request.POST)
         if form.is_valid():
-            print("Formulario valido")
-            print("Nombre: ", form.cleaned_data['nombre'])
-            print("Email: ", form.cleaned_data['email'])
-            print("Telefono: ", form.cleaned_data['telefono'])
+            form.save()
+            form = EmpleadoRegistroForm()
+            return HttpResponseRedirect(reverse('empleadosData'))
 
     data = {'form' : form}
     return render(request, 'empleadosApp/empleadoRegistro.html', data)
