@@ -23,3 +23,23 @@ def crearEmpleado(request):
 
     data = {'form' : form}
     return render(request, 'empleadosApp/empleadoRegistro.html', data)
+
+def editarEmpleado(request, id):
+    empleado = Empleado.objects.get(id=id) #Obtener el empleado que deseamos editar
+    form = EmpleadoRegistroForm(instance=empleado) #Carga los datos del empleado en el form
+
+    if request.method == 'POST':
+        form = EmpleadoRegistroForm(request.POST, instance=empleado)
+        if form.is_valid():
+            form.save()
+            form = EmpleadoRegistroForm()
+            return HttpResponseRedirect(reverse('empleadosData'))
+
+    data = {'form' : form}
+    return render(request, 'empleadosApp/empleadoRegistro.html', data)
+
+def eliminarEmpleado(request, id):
+    empleado = Empleado.objects.get(id=id)
+    empleado.delete()
+    return HttpResponseRedirect(reverse('empleadosData'))
+
